@@ -6,13 +6,21 @@ from .models import Profile
 # Undergister Groups
 admin.site.unregister(Group)
 
+# Mix Profile info into User info 
+
+class ProfileInline(admin.StackedInline):
+    model = Profile
+
 # Extend User Model
 class UserAdmin(admin.ModelAdmin):
     model = User
     fields = ["username"]
+    inlines = [ProfileInline]
     
 # Unregister initial User
 admin.site.unregister(User)
 # Reregister User
 admin.site.register(User, UserAdmin)
-admin.site.register(Profile)
+# admin.site.register(Profile)
+
+
