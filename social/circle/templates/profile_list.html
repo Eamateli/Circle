@@ -10,7 +10,9 @@
 
    {% for profile in profiles %}
      Username: {{ profile.user.username}}<br/>
-     Link: @{{ profile.user.username|lower}}
+     Link: @{{ profile.user.username|lower}}<br/>
+     Last Updated: {{ profile.date_modified }}
+
      <br/><br/>
 
 
