@@ -1,5 +1,6 @@
-from profile import Profile
 from django.shortcuts import render
+from .models import Profile
+
 
 def home(request):
     return render(request, 'home.html', {})
