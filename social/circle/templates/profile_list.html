@@ -3,6 +3,20 @@
 {% block content %}
 
 <h1>Profiles</h1>
+<br/>
+<hr/>
+{% if profiles %}
+
+   {% for profile in profiles %}
+     Username: {{ profile.user.username}}
+     Link: @{{ profile.user.username|lower}}
+     <br/><br/>
+
+
+
+   {% endfor %}
+
+{% endif $}
 
 
 {% endblock %}
