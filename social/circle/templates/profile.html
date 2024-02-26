@@ -7,7 +7,7 @@
 
  <strong>Follows</strong><br/>
  {% for following in profile.follows.all %}
-   @{{ following }}<br/>
+   <a href="{% url 'profile' following.user.id %}">@{{ following }}</a><br/>
  {% endfor %}
 
 <strong>Followed By</strong><br/>
