@@ -10,7 +10,7 @@
             <a class="nav-link" href="{% url 'profile_list' %}">Profiles</a>
           </li>
           <li class="nav-item">
-            {% if request.user.is_authenticated %}
+            {% if user.is_authenticated %}
               <a class="nav-link" href="{% url 'profile' request.user.id %}">My Profile</a>
             {% endif %}
           </li>
