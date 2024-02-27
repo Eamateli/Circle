@@ -21,7 +21,7 @@ def profile_list(request):
 def profile(request,pk):
     if request.user.is_authenticated: 
         profile = Profile.objects.get(user_id=pk)
-        noises = Noise.objects.filter(user_id=pk)
+        noises = Noise.objects.filter(user_id=pk).order_by("-created_at")
         #Post form logic
         if request.method == "POST":
             #Get current user ID
