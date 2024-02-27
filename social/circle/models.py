@@ -16,7 +16,7 @@ class Noise(models.Model):
     def __str__(self):
         return(
             f"{self.user} "
-            f"({self.created_at:%Y-%m-%d-%H-%M}): "
+            f"({self.created_at:%Y-%m-%d %H:%M}): "
             f"{self.body}..."
         )
     
