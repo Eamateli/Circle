@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import Profile
+from .models import Profile, Noise
 
 
 def home(request):
-    return render(request, 'home.html', {})
+    if request.user.is_authenticated:
+        noises = Noise.objects.all()
+        
+    return render(request, 'home.html', {"noises":noises})
 
 def profile_list(request):
     if request.user.is_authenticated:
