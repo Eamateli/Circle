@@ -21,6 +21,7 @@ def profile_list(request):
 def profile(request,pk):
     if request.user.is_authenticated: 
         profile = Profile.objects.get(user_id=pk)
+        noises = Noise.objects.filter(user_id=pk)
         #Post form logic
         if request.method == "POST":
             #Get current user ID
@@ -34,7 +35,7 @@ def profile(request,pk):
                 current_user_profile.follows.add(profile)
             # Save the profile
             current_user_profile.save() 
-        return render(request, "profile.html", {"profile":profile})
+        return render(request, "profile.html", {"profile":profile, "noises":noises})
     else:
         messages.success(request, ("You must be logged in to View Page..."))
         return redirect('home')
