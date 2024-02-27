@@ -5,8 +5,10 @@
 <h1>Noise!</h1>
 
 {% for noise in noises %}
-
-   {{ noise }}<br/><br/>
+<div class="alert alert-dark" role="alert">
+    {{ noise }}
+  </div>
+   <br/>
 {% endfor %}
 
 {% endblock %}
