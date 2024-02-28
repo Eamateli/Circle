@@ -13,7 +13,10 @@
           {% if noises %}
             {% for noise in noises %}
               <div class="alert alert-dark" role="alert">
-                {{ noise }}
+                <strong>{{ noise.body }}</strong><br/>
+                <small class="text-muted">
+                  ({{ noise.created_at}}) By @{{ noise.user.username}}
+                </small>
               </div>
               <br/>
            {% endfor %}
