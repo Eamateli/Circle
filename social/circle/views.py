@@ -15,7 +15,7 @@ def home(request):
                 return redirect('home')
             
         noises = Noise.objects.all().order_by("-created_at")
-        return render(request, 'home.html', {"noises":noises})
+        return render(request, 'home.html', {"noises":noises, "form":form})
     else:
         noises = Noise.objects.all().order_by("-created_at")  
         return render(request, 'home.html', {"noises":noises})
