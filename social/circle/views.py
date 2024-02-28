@@ -1,13 +1,24 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Profile, Noise
-
+from .forms import NoiseForm
 
 def home(request):
-    noises = None
     if request.user.is_authenticated:
+        form = NoiseForm(request.POST or None)
+        if request.method == "POST":
+            if form.is_valid():
+                noise = form.save(commit=False)
+                noise.user = request.user
+                noise.save()
+                messages.success(request, ("You made some Noise!"))
+                return redirect('home')
+            
         noises = Noise.objects.all().order_by("-created_at")
-    return render(request, 'home.html', {"noises":noises})
+        return render(request, 'home.html', {"noises":noises})
+    else:
+        noises = Noise.objects.all().order_by("-created_at")  
+        return render(request, 'home.html', {"noises":noises})
 
 def profile_list(request):
     if request.user.is_authenticated:
