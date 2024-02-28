@@ -4,6 +4,7 @@ from .models import Profile, Noise
 
 
 def home(request):
+    noises = None
     if request.user.is_authenticated:
         noises = Noise.objects.all().order_by("-created_at")
     return render(request, 'home.html', {"noises":noises})
