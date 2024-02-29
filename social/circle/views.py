@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Profile, Noise
 from .forms import NoiseForm
+from django.contrib.auth import authenticate, login, logout
 
 def home(request):
     if request.user.is_authenticated:
