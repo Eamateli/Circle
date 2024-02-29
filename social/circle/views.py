@@ -52,4 +52,11 @@ def profile(request,pk):
     else:
         messages.success(request, ("You must be logged in to View Page..."))
         return redirect('home')
-        
+    
+    
+def login_user(request):
+    return render(request, "login.html", {})
+    
+
+def logout_user(request):
+    pass 
