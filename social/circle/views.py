@@ -3,6 +3,8 @@ from django.contrib import messages
 from .models import Profile, Noise
 from .forms import NoiseForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
+from django import forms
 
 def home(request):
     if request.user.is_authenticated:
