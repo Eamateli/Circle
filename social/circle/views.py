@@ -96,4 +96,10 @@ def register_user(request):
     return render(request, "register.html", {'form':form})
     
 def update_user(request):
-    return render(request, "update_user.html", {})
+    if request.user.is_authenticated:
+        return render(request, "update_user.html", {})
+    
+    else:
+        messages.success(request, ("You Must be Logged In to view that page..."))  
+        return redirect('home')     
+        
