@@ -5,6 +5,8 @@ from .forms import NoiseForm, SignUpForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from django.contrib.auth.models import User
+
 
 def home(request):
     if request.user.is_authenticated:
@@ -97,7 +99,9 @@ def register_user(request):
     
 def update_user(request):
     if request.user.is_authenticated:
-        return render(request, "update_user.html", {})
+        current_user = User.object.get(id=request.user.id)
+        form = SignUpForm(request.POST or None, isinstance=current_user)
+        return render(request, "update_user.html", {'form':form})
     
     else:
         messages.success(request, ("You Must be Logged In to view that page..."))  
