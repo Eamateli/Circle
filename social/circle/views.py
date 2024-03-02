@@ -103,6 +103,7 @@ def update_user(request):
         form = SignUpForm(request.POST or None, isinstance=current_user)
         if form.is_valid():
             form.save()
+            login(request, current_user)
             messages.success(request, ("Your profile has been Updated!"))  
             return redirect('home')  
         
