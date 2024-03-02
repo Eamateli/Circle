@@ -62,9 +62,10 @@
     <button class="btn btn-outline-success" name="follow" value="follow" type="submit">
       Follow @{{ profile.user.username | lower }}
     </button><br/><br/>
-
-
+<!--Check for Correct User-->
+{% if request.user.id == profile.user.id %}
 <a href="{% url 'update_user' %}" class="btn btn-outline-secondary">Update Profile</a>
+{% endif %}
 
 </div>
 </div>
