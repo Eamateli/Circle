@@ -101,6 +101,12 @@ def update_user(request):
     if request.user.is_authenticated:
         current_user = User.object.get(id=request.user.id)
         form = SignUpForm(request.POST or None, isinstance=current_user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, ("Your profile has been Updated!"))  
+            return redirect('home')  
+        
+        
         return render(request, "update_user.html", {'form':form})
     
     else:
