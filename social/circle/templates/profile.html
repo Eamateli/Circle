@@ -24,6 +24,14 @@
               </div>
 <div class="col-4">
   <br/><br/><br/>
+  {% if profile.profile_image %}
+
+
+    <img src="{{ profile.profile_image.url }}" class="img-fluid" alt="Profile Image" style="width: 200px; height: 200px; ">
+<br/><br/>
+
+  {% endif %}
+
     <div class="card">
         <div class="card-header">
          Follows
@@ -68,7 +76,7 @@
 {% endif %}
 
 </div>
-</div>
+</div><br/>
 </div>
 
 
