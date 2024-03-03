@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Profile, Noise
-from .forms import NoiseForm, SignUpForm
+from .forms import NoiseForm, SignUpForm, ProfilePicForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
@@ -100,15 +100,18 @@ def register_user(request):
 def update_user(request):
     if request.user.is_authenticated:
         current_user = User.object.get(id=request.user.id)
-        form = SignUpForm(request.POST or None, isinstance=current_user)
-        if form.is_valid():
-            form.save()
+        profile_user = Profile.objects.get(user__id=request.user.id)
+        user_form = SignUpForm(request.POST or None, request.FILES or None, isinstance=current_user)
+        profile_form = ProfilePicForm(request.POST or None, request.FILES or None, isinstance=profile_user)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
             login(request, current_user)
             messages.success(request, ("Your profile has been Updated!"))  
             return redirect('home')  
         
         
-        return render(request, "update_user.html", {'form':form})
+        return render(request, "update_user.html", {'user_form':user_form})
     
     else:
         messages.success(request, ("You Must be Logged In to view that page..."))  
