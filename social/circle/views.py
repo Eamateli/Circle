@@ -99,7 +99,7 @@ def register_user(request):
     
 def update_user(request):
     if request.user.is_authenticated:
-        current_user = User.object.get(id=request.user.id)
+        current_user = User.objects.get(id=request.user.id)
         profile_user = Profile.objects.get(user__id=request.user.id)
         user_form = SignUpForm(request.POST or None, request.FILES or None, isinstance=current_user)
         profile_form = ProfilePicForm(request.POST or None, request.FILES or None, isinstance=profile_user)
