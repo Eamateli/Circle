@@ -111,7 +111,7 @@ def update_user(request):
             return redirect('home')  
         
         
-        return render(request, "update_user.html", {'user_form':user_form})
+        return render(request, "update_user.html", {'user_form':user_form, 'profile_fomr':profile_form})
     
     else:
         messages.success(request, ("You Must be Logged In to view that page..."))  
