@@ -1,7 +1,7 @@
 from typing import Any
 from django import forms
 from .models import Noise, Profile
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.contrib.auth.models import User
 
 # Profile extras form
@@ -12,9 +12,6 @@ class ProfilePicForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('profile_image', )
-
-
-
 
 class NoiseForm(forms.ModelForm):
     body = forms.CharField(required=True,
@@ -57,3 +54,16 @@ class SignUpForm(UserCreationForm):
         self.fields['password2'].widget.attrs['placeholder'] = 'Confirm Password'
         self.fields['password2'].label = ''
         self.fields['password2'].help_text = '<span class="form-text text-muted"><small>Enter the same password as before, for verification.</small></span>'
+
+
+# class CustomUserChangeForm(UserChangeForm):
+#     def clean_username(self):
+#         username = self.cleaned_data['username']
+#         if self.instance.username != username:  # Check if username has changed
+#             try:
+#                 # Perform uniqueness check only if username has changed
+#                 User.objects.get(username=username)
+#                 raise forms.ValidationError('A user with that username already exists.')
+#             except User.DoesNotExist:
+#                 return username
+#         return username  # Return username if it has not changed
