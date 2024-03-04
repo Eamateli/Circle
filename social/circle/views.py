@@ -98,22 +98,27 @@ def register_user(request):
     return render(request, "register.html", {'form':form})
     
 def update_user(request):
-	if request.user.is_authenticated:
-		current_user = User.objects.get(id=request.user.id)
-		profile_user = Profile.objects.get(user__id=request.user.id)
-		# Get Forms
-		user_form = SignUpForm(request.POST or None, request.FILES or None, instance=current_user)
-		profile_form = ProfilePicForm(request.POST or None, request.FILES or None, instance=profile_user)
-		if user_form.is_valid() and profile_form.is_valid():
-			user_form.save()
-			profile_form.save()
+    if request.user.is_authenticated:
+        current_user = request.user
+        profile_user = Profile.objects.get(user=current_user)
 
-			login(request, current_user)
-			messages.success(request, ("Your Profile Has Been Updated!"))
-			return redirect('home')
+        # Get Forms
+        user_form = SignUpForm(request.POST or None, instance=current_user)
+        profile_form = ProfilePicForm(request.POST or None, request.FILES or None, instance=profile_user)
 
-		return render(request, "update_user.html", {'user_form':user_form, 'profile_form':profile_form})
-	else:
-		messages.success(request, ("You Must Be Logged In To View That Page..."))
-		return redirect('home')  
+        if request.method == 'POST':
+            if user_form.is_valid() and profile_form.is_valid():
+                user_form.save()
+                profile_form.save()
+
+                messages.success(request, "Your profile has been updated successfully!")
+                return redirect('home')
+            else:
+                messages.error(request, "Please correct the errors in the form.")
+
+        return render(request, "update_user.html", {'user_form': user_form, 'profile_form': profile_form})
+    else:
+        messages.success(request, "You must be logged in to view that page.")
+        return redirect('home')
+
         
