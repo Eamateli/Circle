@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
 <div class="container text-center">
@@ -9,6 +9,18 @@
 <br/>
 {% for noise in noises %}
 <div class="alert alert-dark" role="alert">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-1">
+        {%  if profile.profile_image  %}
+        <img src="{{ profile.profile_image.url}}" width=50 height=50 class="rounded-circle" alt="{{ profile.user.username}}">
+       {% else %}
+       <img src="{% static 'images/default_profile_pic.png' %}" width=50 height=50 class="rounded-circle" alt="{{ profile.user.username}}">
+         
+       {% endif %}
+      </div>
+<div class="col-10">
     <strong>{{ noise.body }}</strong><br/>
     <small class="text-muted">
       ({{ noise.created_at}}) By @{{ noise.user.username}}
@@ -17,6 +29,9 @@
 
   </div>
    <br/>
+  </div>
+  </div>
+  </div>
 {% endfor %}
 </div>
 
