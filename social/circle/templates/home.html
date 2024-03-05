@@ -25,7 +25,7 @@
     <small class="text-muted">
       ({{ noise.created_at}}) By @{{ noise.user.username}}
     </small>
-
+    - {{ noise.number_of_likes }} Likes - <a href="{%  url 'noise_like' noise.id  %}">Like</a>
 
   </div>
    <br/>
