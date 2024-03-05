@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import Profile, Noise
 from .forms import NoiseForm, SignUpForm, ProfilePicForm
@@ -116,4 +116,20 @@ def update_user(request):
 	else:
 		messages.success(request, ("You Must Be Logged In To View That Page..."))
 		return redirect('home')  
+
+
+def noise_like(request, pk):
+    if request.user.is_authenticated:
+       noise = get_object_or_404(Noise,id=pk)
+       if noise.likes.filter(id=request.user.id):
+           noise.likes.remove(request.user)
+       else:
+           noise.likes.add(request.user)
+       return redirect('home')    
+    else:
+        messages.success(request, ("You Must Be Logged In To View That Page..."))
+        return redirect('home')  
+        
+        
+        
         
