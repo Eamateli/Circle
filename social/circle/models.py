@@ -14,6 +14,12 @@ class Noise(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     likes = models.ManyToManyField(User, related_name="noise_like", blank=True)
     
+    # Keep track of likes
+    def number_of_likes(self):
+        return self.likes.count()
+    
+    
+    
     def __str__(self):
         return(
             f"{self.user} "
