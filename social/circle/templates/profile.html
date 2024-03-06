@@ -33,6 +33,7 @@
                 <small class="text-muted">
                   ({{ noise.created_at}}) By @{{ noise.user.username}}
                 </small>
+                - {{ noise.number_of_likes }} Likes -
                 {%  if user in noise.likes.all %}
                 <a href="{%  url 'noise_like' noise.id  %}"><i class="fa-solid fa-heart" style="color:rgb(245, 75, 75)"></i></a>
                 {% else %}
