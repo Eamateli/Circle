@@ -25,13 +25,15 @@
     <small class="text-muted">
       ({{ noise.created_at}}) By @{{ noise.user.username}}
     </small>
-    - {{ noise.number_of_likes }}
+    &nbsp; &nbsp;
+    {{ noise.number_of_likes }}
     {%  if user in noise.likes.all %}
     <a href="{%  url 'noise_like' noise.id  %}"><i class="fa-solid fa-heart" style="color:rgb(245, 75, 75)"></i></a>
     {% else %}
     <a href="{%  url 'noise_like' noise.id  %}"><i class="fa fa-heart-o" style="color:grey"></i></a>
     {% endif %}
-    <a href="{% url 'noise_show' noise.id %}">share</a>
+    &nbsp; &nbsp;
+    <a href="{% url 'noise_show' noise.id %}"><i class="fa-solid fa-share" style="color:gray"></i></a>
   </div>
    <br/>
   </div>
