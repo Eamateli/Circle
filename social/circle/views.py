@@ -128,7 +128,18 @@ def noise_like(request, pk):
        return redirect('home')    
     else:
         messages.success(request, ("You Must Be Logged In To View That Page..."))
-        return redirect('home')  
+        return redirect('home') 
+    
+    
+def noise_show(request, pk):
+    noise = get_object_or_404(Noise,id=pk)
+    if noise:
+        return render(request, "show_noise.html", {'noise':noise})     
+    else:
+        messages.success(request, ("That Noise does not exist..."))
+        return redirect('home') 
+        
+     
         
         
         
