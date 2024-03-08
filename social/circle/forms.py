@@ -18,7 +18,7 @@ class ProfilePicForm(forms.ModelForm):
     
     class Meta:
         model = Profile
-        fields = ('profile_image', )
+        fields = ('profile_image', 'profile_bio', 'hompage_link', 'facebook_link', 'instagram_link','linkedin_link','github_link',)
 
 class NoiseForm(forms.ModelForm):
     body = forms.CharField(required=True,
