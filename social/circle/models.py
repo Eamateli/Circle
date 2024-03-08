@@ -40,7 +40,7 @@ class Profile(models.Model):
     
     date_modified = models.DateTimeField(User, auto_now=True)  
     profile_image = models.ImageField(null=True,blank=True, upload_to="images/")
-    proflle_bio = models.CharField(null=True, blank=True, max_length=500)
+    profile_bio = models.CharField(null=True, blank=True, max_length=500)
     hompage_link = models.CharField(null=True, blank=True, max_length=250)
     facebook_link = models.CharField(null=True, blank=True, max_length=250)
     instagram_link = models.CharField(null=True, blank=True, max_length=250)
