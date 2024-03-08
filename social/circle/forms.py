@@ -8,6 +8,13 @@ from django.contrib.auth.models import User
 
 class ProfilePicForm(forms.ModelForm):
     profile_image = forms.ImageField(label="Profile Picture")
+    profile_bio = forms.CharField(label="Profile Bio", widget=forms.Textarea(attrs={'class':'form-control', 'placeholder':'Profile Bio'}))
+    hompage_link = forms.CharField(label="Website Link", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Profile Bio'}))
+    facebook_link = forms.CharField(label="Facebook Link", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Facebook Bio'}))
+    instagram_link = forms.CharField(label="Instagram Link", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Instagram Bio'}))
+    linkedin_link = forms.CharField(label="Linkedin Link", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Linkedin Bio'}))
+    github_link = forms.CharField(label="Github Link", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Github Bio'}))
+    
     
     class Meta:
         model = Profile
