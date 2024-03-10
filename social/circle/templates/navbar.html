@@ -29,7 +29,9 @@
         {% if user.is_authenticated %}
           <ul class="navbar-nav ml-auto">
             <li class="nav-link navbar-brand">
-              {{ user }}
+              <a href="{% url 'profile' request.user.id %}">
+                <img src="{{ user.profile.profile_image.url}}" class="rounded-circle" width=30 >
+              </a>
 
             </li>
           </ul>
