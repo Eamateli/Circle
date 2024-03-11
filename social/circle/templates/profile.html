@@ -106,7 +106,7 @@
         <div class="card-body">
           <p class="card-text">
             {% for following in profile.follows.all %}
-              <a href="{% url 'profile' following.user.id %}">@{{ following }}</a><br/>
+              <a href="{% url 'profile' following.user.id %}">@{{ following }}</a><a href="#">&nbsp;&nbsp;<i class="fa-solid fa-rotate-left" style="color:rgb(192, 178, 178)"></i></a><br/>
             {% endfor %}
           </p>
         </div>
