@@ -34,6 +34,24 @@ def profile_list(request):
         messages.success(request, ("You must be logged in to View Page..."))
         return redirect('home')
         
+ 
+def unfollow(request, pk):
+    if request.user.is_authenticated:
+        # Get profile to unfollow
+        profile = Profile.objects.get(user_id=pk)
+        # Unfollow user
+        request.user.profile.follows.remove(profile)
+        # Save our profile
+        request.user.profile.save()
+        messages.success(request, (f"You have successfully unfollowed {profile.user.username}"))
+        return redirect(request.META.get("HTTP_REFERER"))
+             
+    else:
+        messages.success(request, ("You must be logged in to View Page..."))
+        return redirect('home')
+    
+    
+ 
     
 def profile(request,pk):
     if request.user.is_authenticated: 
@@ -125,7 +143,8 @@ def noise_like(request, pk):
            noise.likes.remove(request.user)
        else:
            noise.likes.add(request.user)
-       return redirect('home')    
+    #    return redirect('home')    
+       return redirect(request.META.get("HTTP_REFERER"))
     else:
         messages.success(request, ("You Must Be Logged In To View That Page..."))
         return redirect('home') 
