@@ -11,6 +11,8 @@ urlpatterns = [
     path('update_user/', views.update_user, name='update_user'),
     path('noise_like/<int:pk>', views.noise_like, name='noise_like'),
     path('noise_show/<int:pk>', views.noise_show, name='noise_show'),
+    path('unfollow/<int:pk>', views.unfollow, name='unfollow'),
+    
     
 
 ]
