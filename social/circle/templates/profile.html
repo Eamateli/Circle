@@ -132,7 +132,11 @@
         <a href="{% url 'follow' following.user.id  %}"><i class="fa fa-user-plus" style="color:rgb(192, 178, 178)"></i></a><br/>
         {% endif %}
         <br/>
-        {% endfor %}
+        {% endfor %}<br/>
+        <a href="{% url 'followers' profile.user.id %}">See All...</a>
+
+      
+
       </p>
 
     </div>
