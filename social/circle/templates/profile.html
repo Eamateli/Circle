@@ -119,7 +119,7 @@
     </div>
     <div class="card-body">
       <p class="card-text">
-        {%  for following  in profile.followed_by.all %}
+        {%  for following  in profile.followed_by.all |slice: 3 %}
         <a href="{% url 'profile' following.user.id %}">@{{ following }}</a>
         &nbsp;&nbsp;
         
