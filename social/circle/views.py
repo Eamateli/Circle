@@ -92,6 +92,23 @@ def profile(request,pk):
         return redirect('home')
     
     
+    
+def followers(request,pk):
+    if request.user.is_authenticated:
+        if request.user.id == pk:
+            
+            profiles = Profile.objects.exclude(user_id=pk)
+            return render(request, 'followers.html', {"profiles":profiles} )
+        else:
+            messages.success(request, ("That's not your profile page..."))
+            return redirect('home')
+            
+        
+    else:
+        messages.success(request, ("You must be logged in to View Page..."))
+        return redirect('home')
+    
+    
 def login_user(request):
     if request.method == "POST":
         username = request.POST['username']
