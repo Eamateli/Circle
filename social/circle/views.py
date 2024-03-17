@@ -97,7 +97,7 @@ def followers(request,pk):
     if request.user.is_authenticated:
         if request.user.id == pk:
             
-            profiles = Profile.objects.exclude(user_id=pk)
+            profiles = Profile.objects.get(user_id=pk)
             return render(request, 'followers.html', {"profiles":profiles} )
         else:
             messages.success(request, ("That's not your profile page..."))
