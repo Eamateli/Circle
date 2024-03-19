@@ -15,6 +15,7 @@ urlpatterns = [
     path('noise_show/<int:pk>', views.noise_show, name='noise_show'),
     path('unfollow/<int:pk>', views.unfollow, name='unfollow'),
     path('follow/<int:pk>', views.follow, name='follow'),
+    path('delete_noise/<int:pk>', views.delete_noise, name='delete_noise'),
     
     
 
