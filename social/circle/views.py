@@ -212,13 +212,14 @@ def delete_noise(request, pk):
        noise = get_object_or_404(Noise,id=pk)
        # Check to see if you own the noise
        if request.user.username == noise.user.username:
-           messages.success(request, ("That's your noise..."))
+           noise.delete()
+           messages.success(request, ("Your Noise has been Deleted!"))
            return redirect(request.META.get("HTTP_REFERER"))
        else:
-           messages.success(request, ("That's your noise..."))
-           return redirect(request.META.get("HTTP_REFERER"))             
+           messages.success(request, ("You don't own that Noise..."))
+           return redirect('home')             
     else:
-        messages.success(request, ("That's Not your Noise..."))
+        messages.success(request, ("Please Log In to continue..."))
         return redirect(request.META.get("HTTP_REFERER"))
         
         
