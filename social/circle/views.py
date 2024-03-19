@@ -207,7 +207,18 @@ def noise_show(request, pk):
         messages.success(request, ("That Noise does not exist..."))
         return redirect('home') 
         
-     
+def delete_noise(request, pk):
+    if request.user.is_authenticated:
+       noise = get_object_or_404(Noise,id=pk)
+    else:
+        messages.success(request, ("Please Log In to continue..."))
+        return redirect(request.META.get("HTTP_REFERER"))
+        
+        
+        
+
+
+    
         
         
         
