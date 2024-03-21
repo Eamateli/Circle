@@ -224,13 +224,21 @@ def delete_noise(request, pk):
         
 def edit_noise(request, pk):
     if request.user.is_authenticated:
-       noise = get_object_or_404(Noise,id=pk)
-       # Check to see if you own the noise
        if request.user.username == noise.user.username:
-           return render(request, "edit_noise.html", {'form':form , 'noise':noise})
-           
-           
-           return redirect(request.META.get("HTTP_REFERER"))
+           noise = get_object_or_404(Noise,id=pk)
+           form = NoiseForm(request.POST or None, instance=noise)
+           if request.method == "POST":
+                    if form.is_valid():
+                        noise = form.save(commit=False)
+                        noise.user = request.user
+                        noise.save()
+                        messages.success(request, ("Your Noise has been updated!"))
+                        return redirect('home')
+
+                    return render(request, "edit_noise.html", {'form':form , 'noise':noise})
+           else:
+               return render(request, "edit_noise.html", {'form':form , 'noise':noise})
+
        else:
            messages.success(request, ("You don't own that Noise..."))
            return redirect('home')             
