@@ -224,8 +224,8 @@ def delete_noise(request, pk):
         
 def edit_noise(request, pk):
     if request.user.is_authenticated:
+       noise = get_object_or_404(Noise,id=pk)
        if request.user.username == noise.user.username:
-           noise = get_object_or_404(Noise,id=pk)
            form = NoiseForm(request.POST or None, instance=noise)
            if request.method == "POST":
                     if form.is_valid():
