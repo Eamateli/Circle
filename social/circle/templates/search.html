@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<h1>Search Noise!</h1>
+<br/><hr/>
+
+
+  <form method=POST>
+   {% csrf_token %}
+
+    <button type="submit" class="btn btn-secondary">Search Noise!</button>
+  </form>
+
+{% endblock %}
