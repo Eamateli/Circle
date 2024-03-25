@@ -48,10 +48,13 @@
    {% endfor %}
 
 {% else %}
+{% if searched == None %}
+
+{% else %}
 
 No user with that name was found. Please try again...
 
-
+{% endif %}
 {% endif %}
 
 
