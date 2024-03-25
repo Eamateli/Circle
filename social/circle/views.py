@@ -245,6 +245,9 @@ def edit_noise(request, pk):
     else:
         messages.success(request, ("Please Log In to continue..."))
         return redirect('home')
+    
+def search(request):
+    return render(request, 'search.html', {})
         
     
         
