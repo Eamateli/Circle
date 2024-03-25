@@ -18,6 +18,6 @@ urlpatterns = [
     path('delete_noise/<int:pk>', views.delete_noise, name='delete_noise'),
     path('edit_noise/<int:pk>', views.edit_noise, name='edit_noise'),
     path('search/', views.search, name='search'),
-       
-
+    path('search_user/', views.search_user, name='search_user'),
+    
 ]
