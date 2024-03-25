@@ -247,7 +247,13 @@ def edit_noise(request, pk):
         return redirect('home')
     
 def search(request):
-    return render(request, 'search.html', {})
+    if request.method == "POST":
+        search = request.POST['search']
+        return render(request, 'search.html', {'search':search})
+    
+    else:
+        return render(request, 'search.html', {})
+        
         
     
         
