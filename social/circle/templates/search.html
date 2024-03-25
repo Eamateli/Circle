@@ -3,14 +3,15 @@
 {% block content %}
 
 
-<h1>Search Noise!</h1>
-<br/><hr/>
-
-
+<h1>Search Noise!</h1><br/>
   <form method=POST>
    {% csrf_token %}
+   <input type="input" class="form-control"  placeholder="Search Noises " name="search"><br/>
 
-    <button type="submit" class="btn btn-secondary">Search Noise!</button>
+    <button type="submit" class="btn btn-secondary">Search</button>
   </form>
+<br/>
+
+You searched for : 
 
 {% endblock %}
