@@ -15,7 +15,9 @@
 {%  if search %}
 <h3>You searched for : {{ search }}</h3><br/>
 
-{{ searched }}
+{% for noise in searched %}
+{{ noise }}<br/><br/>
+{% endfor %}
 
 {% endif %}
 
