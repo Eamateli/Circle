@@ -262,7 +262,7 @@ def search_user(request):
         # Grab the form field input
         search = request.POST['search']
         # search the DB
-        searched = Noise.objects.filter(body__contains= search)
+        searched = User.objects.filter(username__contains= search)
         return render(request, 'search_user.html', {'search':search, 'searched':searched})
     
     else:
