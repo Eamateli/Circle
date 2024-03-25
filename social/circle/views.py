@@ -252,7 +252,7 @@ def search(request):
         search = request.POST['search']
         # search the DB
         searched = Noise.objects.filter(body__contains= search)
-        return render(request, 'search.html', {'search':search, 'searched':search})
+        return render(request, 'search.html', {'search':search, 'searched':searched})
     
     else:
         return render(request, 'search.html', {})
