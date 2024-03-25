@@ -12,6 +12,10 @@
   </form>
 <br/>
 
-You searched for : 
+{%  if search %}
+<h3>You searched for : {{ search }}</h3>
+
+
+{% endif %}
 
 {% endblock %}
