@@ -248,8 +248,11 @@ def edit_noise(request, pk):
     
 def search(request):
     if request.method == "POST":
+        # Grab the form field input
         search = request.POST['search']
-        return render(request, 'search.html', {'search':search})
+        # search the DB
+        searched = Noise.objects.filter(body__contains= search)
+        return render(request, 'search.html', {'search':search, 'searched':search})
     
     else:
         return render(request, 'search.html', {})
