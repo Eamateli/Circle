@@ -2,54 +2,54 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'home' %}">Circle</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'profile_list' %}">Profiles</a>
-          </li>
-          {% if user.is_authenticated %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'logout' %}">Logout</a>          
-        </li>
-          {% else %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'register' %}">Register</a>
-        </li>
-          <li class="nav-item">
-              <a class="nav-link" href="{% url 'login' %}">Login</a>
-          </li>
-          {% endif %}
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Search
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{% url 'search' %}">Search Noise</a></li>
-            <li><a class="dropdown-item" href="{% url 'search_user' %}">Search User</a></li>
-          </ul>
-        </li>
-          
-        </ul>
-{% if user.is_authenticated %}
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-link navbar-brand">
-              <a href="{% url 'profile' request.user.id %}">
-      {% if user.profile.profile_image %}
-                <img src="{{ user.profile.profile_image.url}}" class="rounded-circle" width=30 >
-      {% else %}
-                <img src="{% static 'images/default_profile_pic.png' %}" class="img-fluid rounded-circle" alt="Profile Image" width=30>
-
-      {% endif %}
-              </a>
-
-            </li>
-          </ul>
-
-{%  endif  %}
-      </div>
+        <a class="navbar-brand" href="{% url 'home' %}">Circle <i class="fa-solid fa-house" style="color: white; margin-left: 20px;"></i></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse show" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profile_list' %}"><i class="fa-solid fa-users"></i></a>
+                </li>
+            </ul>
+            <form method="POST" action="{% url 'search' %}" class="d-flex mx-auto position-relative" style="max-width: 400px;">
+                {% csrf_token %}
+                <!-- Use data-bs-toggle="popover" instead of data-bs-toggle="tooltip" -->
+                <i id="popover-icon" class="fa-solid fa-circle-info text-secondary position-absolute" style="cursor: pointer; left: -30px; top: 50%; transform: translateY(-50%);"></i>
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+                <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </form>
+            {% if user.is_authenticated %}
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ user.username }}
+                        {% if user.profile.profile_image %}
+                            <img src="{{ user.profile.profile_image.url }}" class="rounded-circle" width=30 alt="Profile Image">
+                        {% else %}
+                            <img src="{% static 'images/default_profile_pic.png' %}" class="rounded-circle" alt="Profile Image" width=30>
+                        {% endif %}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right position-absolute" style="left: auto; right: 0; transform: translateX(-20px);">
+                        <li><a class="dropdown-item" href="{% url 'profile' request.user.id %}">Profile</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+            {% else %}
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="btn btn-success me-2" href="{% url 'register' %}">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-secondary" href="{% url 'login' %}">Login</a>
+                </li>
+            </ul>
+            {% endif %}
+        </div>
     </div>
-  </nav>
+</nav>
+
+
+

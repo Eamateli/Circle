@@ -245,29 +245,37 @@ def edit_noise(request, pk):
     else:
         messages.success(request, ("Please Log In to continue..."))
         return redirect('home')
-    
+
+
 def search(request):
     if request.method == "POST":
         # Grab the form field input
-        search = request.POST['search']
-        # search the DB
-        searched = Noise.objects.filter(body__contains= search)
-        return render(request, 'search.html', {'search':search, 'searched':searched})
-    
-    else:
-        return render(request, 'search.html', {})
-    
-def search_user(request):
-    if request.method == "POST":
-        # Grab the form field input
-        search = request.POST['search']
-        # search the DB
-        searched = User.objects.filter(username__contains= search)
-        return render(request, 'search_user.html', {'search':search, 'searched':searched})
-    
-    else:
-        return render(request, 'search_user.html', {})
-    
+        search_query = request.POST.get('search', '').strip()
+
+        # Initialize variables for searched users and noises
+        searched_users = None
+        searched_noises = None
+
+        # Check if the query is not empty
+        if search_query:
+            # Check if the query starts with "@" symbol
+            if search_query.startswith('@'):
+                # Remove "@" symbol and search for users
+                username = search_query[1:]
+                searched_users = User.objects.filter(username__icontains=username)
+            else:
+                # Search for noises
+                searched_noises = Noise.objects.filter(body__icontains=search_query)
+
+            return render(request, 'search.html', {
+                'search_query': search_query,
+                'searched_users': searched_users,
+                'searched_noises': searched_noises
+            })
+
+    # If the search query is empty or no search results are found, redirect to the home page
+    return redirect('home')
+
         
         
     
