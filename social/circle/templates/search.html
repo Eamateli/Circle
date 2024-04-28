@@ -2,53 +2,69 @@
 {% load static %}
 {% block content %}
 
-
-<h1>Search Noise!</h1><br/>
-  <form method=POST>
-   {% csrf_token %}
-   <input type="input" class="form-control"  placeholder="Search Noises " name="search"><br/>
-
-    <button type="submit" class="btn btn-secondary">Search</button>
-  </form>
-<br/>
-
-{%  if search %}
-<h3>You searched for : {{ search }}</h3><br/>
-
-{% for noise in searched %}
-<div class="alert alert-dark" role="alert">
-
-    <div class="container">
-      <div class="row">
-        <div class="col-1">
-          {%  if noise.user.profile.profile_image  %}
-          <img src="{{ noise.user.profile.profile_image.url}}" width=50 height=50 class="rounded-circle" alt="{{ profile.user.username}}">
-         {% else %}
-         <img src="{% static 'images/default_profile_pic.png' %}" width=50 height=50 class="rounded-circle" alt="{{ profile.user.username}}">
-           
-         {% endif %}
-        </div>
-  <div class="col-10">
-      <strong>{{ noise.body }}</strong><br/>
-      <small class="text-muted">
-        ({{ noise.created_at}}) By @{{ noise.user.username}}
-      </small>
-      &nbsp; &nbsp;
-      {{ noise.number_of_likes }}
-      {%  if user in noise.likes.all %}
-      <a href="{%  url 'noise_like' noise.id  %}"><i class="fa-solid fa-heart" style="color:rgb(245, 75, 75)"></i></a>
-      {% else %}
-      <a href="{%  url 'noise_like' noise.id  %}"><i class="fa fa-heart-o" style="color:grey"></i></a>
-      {% endif %}
-      &nbsp; &nbsp;
-      <a href="{% url 'noise_show' noise.id %}"><i class="fa-solid fa-share" style="color:gray"></i></a>
-    </div>
-     <br/>
-    </div>
-    </div>
-    </div><br/>
-{% endfor %}
-
+{% if search_query %}
+    <h3>You searched for: {{ search_query }}</h3>
 {% endif %}
-<br/><br/>
+
+{% if searched_users %}
+    <div class="row">
+        {% for result in searched_users %}
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        {% if result.profile.profile_image %}
+                            <img src="{{ result.profile.profile_image.url }}" class="img-fluid rounded-start" alt="{{ result.profile.user.username }}">
+                        {% else %}
+                            <img src="{% static 'images/default_profile_pic.png' %}" class="img-fluid rounded-start" alt="Profile Image">
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ result.profile.user.username }}</h5>
+                            <p class="card-text"><a href="{% url 'profile' result.profile.user.id %}">@{{ result.profile.user.username | lower }}</a></p>
+                            <p class="card-text"><small class="text-body-secondary">Last Updated: {{ result.profile.date_modified }}</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% if searched_noises %}
+    <h3>Noises</h3>
+    {% for noise in searched_noises %}
+    <div class="alert alert-dark" role="alert">
+        <div class="container">
+            <div class="row">
+                <div class="col-1">
+                    <img src="{% if noise.user.profile.profile_image %}{{ noise.user.profile.profile_image.url }}{% else %}{% static 'images/default_profile_pic.png' %}{% endif %}" width=50 height=50 class="rounded-circle" alt="{{ noise.user.username }}">
+                </div>
+                <div class="col-10">
+                    <strong>{{ noise.body }}</strong><br/>
+                    <small class="text-muted">
+                        ({{ noise.created_at }}) By @{{ noise.user.username }}
+                    </small>
+                    &nbsp; &nbsp;
+                    {{ noise.number_of_likes }}
+                    {% if user in noise.likes.all %}
+                        <a href="{% url 'noise_like' noise.id %}"><i class="fa-solid fa-heart" style="color:rgb(245, 75, 75)"></i></a>
+                    {% else %}
+                        <a href="{% url 'noise_like' noise.id %}"><i class="fa fa-heart-o" style="color:grey"></i></a>
+                    {% endif %}
+                    &nbsp; &nbsp;
+                    <a href="{% url 'noise_show' noise.id %}"><i class="fa-solid fa-share" style="color:gray"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% endif %}
+
+{% if not searched_users and not searched_noises %}
+    <p>No results found.</p>
+{% endif %}
+
 {% endblock %}
