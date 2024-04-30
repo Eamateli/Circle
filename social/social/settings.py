@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-l1c5q((1h3daff7sk5%42@@e&!)m7$wj&$dsadz-hik$ur7q+e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['circleapp.online','16.171.42.138', '16.171.42.138:8000']
+ALLOWED_HOSTS = ['www.circleapp.online','circleapp.online','16.171.42.138', '16.171.42.138:8000','127.0.0.1','127.0.0.1:8000']
 
 
 
